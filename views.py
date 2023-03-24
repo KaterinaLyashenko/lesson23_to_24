@@ -1,4 +1,6 @@
-from flask import Blueprint, request, jsonify
+from typing import Union, Tuple, Dict, List
+
+from flask import Blueprint, request, jsonify, Response
 from marshmallow import ValidationError
 
 from builder import build_query
@@ -6,12 +8,10 @@ from models import RequestSchema, BatchRequest
 
 main_bp = Blueprint('main', __name__)
 
-#FILE_NAME = 'data/apache_logs.txt'
-
 @main_bp.route('/perform_query', methods=['POST'])
-def perform_query():
+def perform_query() -> Union[Response, Tuple[Response, int]]:
     # Принять запрос от пользователя
-    data = request.json
+    data: Dict[str, Union[List[dict], str]] = request.json
     # Обработать запрос,валидировать значения
     try:
         validated_data = BatchRequest().load(data)

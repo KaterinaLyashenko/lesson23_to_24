@@ -1,6 +1,8 @@
+from typing import List, Callable, Dict, Tuple
+
 from marshmallow import Schema, fields, validates_schema, ValidationError
 
-VALID_CMD_COMMANDS = ('filter', 'limit', 'map', 'sort', 'unique')
+VALID_CMD_COMMANDS = ('filter', 'limit', 'map', 'sort', 'unique', 'regex')
 
 class RequestSchema(Schema):
     cmd = fields.Str(required=True)
